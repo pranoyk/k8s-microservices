@@ -1,14 +1,21 @@
 package main
 
 import (
-  "net/http"
+	"fmt"
+	"net/http"
 
-  "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
   r := gin.Default()
   r.GET("/ping", func(c *gin.Context) {
+    res, err := http.Get("http://localhost:8888/db")
+    if err != nil {
+      fmt.Println(err)
+    } else {
+      fmt.Println(res)
+    }
     c.JSON(http.StatusOK, gin.H{
       "message": "pong",
     })
