@@ -4,6 +4,7 @@ kind: PersistentVolumeClaim
 metadata:
   # Name the volume chain
   name: db-persistent-volume-claim
+  namespace: k8s-micro
 spec:
   storageClassName: manual
   accessModes:

@@ -6,6 +6,7 @@ metadata:
   name: db-secret-credentials
   labels:
     app: postgresdb
+  namespace: k8s-micro
 data:
   # User DB
   POSTGRES_DB: testDB

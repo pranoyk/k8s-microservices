@@ -5,6 +5,7 @@ kind: Deployment
 metadata:
   # The name of the Deployment
   name: postgresdb
+  namespace: k8s-micro
 spec:
   selector:
     # labels the pods

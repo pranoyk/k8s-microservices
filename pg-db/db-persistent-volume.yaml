@@ -8,6 +8,7 @@ metadata:
   labels:
     type: local
     app: postgresdb
+  namespace: k8s-micro
 spec:
   storageClassName: manual
   capacity:
