@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: k8s-demo-db
-        image: pranoyk/k8s-demo-db:latest
+        image: pranoyk/k8s-demo-db:1.0
         ports:
         - containerPort: 8888
 ---

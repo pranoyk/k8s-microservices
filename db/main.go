@@ -10,11 +10,11 @@ import (
 )
 
 const (
-	host     = "localhost"
+	host     = "postgresdb"
 	port     = 5432
-	user     = "postgres"
-	password = "<password>"
-	dbname   = "<dbname>"
+	user     = "testUser"
+	password = "testPassword"
+	dbname   = "testDB"
 )
 
 func main() {
@@ -31,6 +31,11 @@ func main() {
 	// check db
 	err = db.Ping()
 	CheckError(err)
+
+	res, err := db.Query("CREATE TABLE user IF NOT EXIST (id serial PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL)")
+	CheckError(err)
+
+	fmt.Println(res)
 
 	fmt.Println("Connected!")
 	Routes()
