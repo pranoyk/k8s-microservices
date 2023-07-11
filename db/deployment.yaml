@@ -17,19 +17,6 @@ spec:
     spec:
       containers:
       - name: k8s-demo-db
-        image: pranoyk/k8s-demo-db:1.0
+        image: pranoyk/k8s-demo-db:1.1
         ports:
         - containerPort: 8888
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: k8s-demo-db-service
-  namespace: k8s-micro
-spec:
-  selector:
-    app.kubernetes.io/name: k8s-demo-db
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8888
