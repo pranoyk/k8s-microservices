@@ -32,10 +32,13 @@ func main() {
 	err = db.Ping()
 	CheckError(err)
 
-	res, err := db.Query("CREATE TABLE IF NOT EXISTS \"users\" (id serial PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL)")
+	userRes, err := db.Query("CREATE TABLE IF NOT EXISTS \"users\" (id serial PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL, password VARCHAR(100) NOT NULL)")
 	CheckError(err)
 
-	fmt.Println(res)
+	accountRes, err := db.Query("CREATE TABLE IF NOT EXISTS \"accounts\" (id serial PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL)")
+	CheckError(err)
+
+	fmt.Println(userRes, accountRes)
 
 	fmt.Println("Connected!")
 	Routes()
