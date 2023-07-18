@@ -6,13 +6,13 @@ metadata:
   name: postgresdb
   labels:
     app: postgresdb
-  namespace: k8s-micro
 spec:
   # Choose how to expose your service
   type: NodePort
   ports:
-    # The port number to expose the service
-    - port: 5432
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
   # Pod to route service traffic  
   selector:
     app: postgresdb

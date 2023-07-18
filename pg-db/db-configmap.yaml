@@ -3,10 +3,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   # Name your ConfigMap
-  name: db-secret-credentials
+  name: postgres-creds
   labels:
     app: postgresdb
-  namespace: k8s-micro
 data:
   # User DB
   POSTGRES_DB: testDB

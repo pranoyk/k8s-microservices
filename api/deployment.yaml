@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-demo-api
+  labels:
+    app: k8s-demo-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8s-demo-api
+  template:
+    metadata:
+      labels:
+        app: k8s-demo-api
+    spec:
+      containers:
+      - name: k8s-demo-api
+        image: pranoyk/k8s-demo-api:1.0
+        ports:
+        - containerPort: 8080

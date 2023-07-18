@@ -4,11 +4,6 @@ kind: PersistentVolume
 metadata:
   # Name the persistent chain
   name: postgresdb-persistent-volume
-  # Labels for identifying PV
-  labels:
-    type: local
-    app: postgresdb
-  namespace: k8s-micro
 spec:
   storageClassName: manual
   capacity:

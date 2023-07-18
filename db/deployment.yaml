@@ -4,7 +4,6 @@ metadata:
   name: k8s-demo-db
   labels:
     app: k8s-demo-db
-  namespace: k8s-micro
 spec:
   replicas: 3
   selector:

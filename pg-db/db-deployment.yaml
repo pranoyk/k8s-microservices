@@ -5,7 +5,6 @@ kind: Deployment
 metadata:
   # The name of the Deployment
   name: postgresdb
-  namespace: k8s-micro
 spec:
   selector:
     # labels the pods
@@ -29,7 +28,7 @@ spec:
             # Load the environment variables/PostgresSQL credentials
             - configMapRef:
                 # This should be the ConfigMap name created ealier
-                name: db-secret-credentials
+                name: postgres-creds
           volumeMounts:
             # The volume mounts  for the container
             - mountPath: /var/lib/postgres/data
