@@ -12,16 +12,16 @@ RUN go mod download
 COPY ./main.go .
 
 # Build the Go application
-RUN CGO_ENABLED=0 GOOS=linux go build -o api
+RUN CGO_ENABLED=0 GOOS=linux go build -o user
 
 # Create a minimal container to run the Go application
 FROM scratch
 
 # Copy the built binary from the builder stage
-COPY --from=builder /app/api /
+COPY --from=builder /app/user /
 
 # Expose the port that the application listens on
 EXPOSE 8080
 
 # Set the entry point to run the built Go application
-CMD ["./api"]
+CMD ["./user"]
