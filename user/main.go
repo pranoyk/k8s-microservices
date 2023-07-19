@@ -58,7 +58,6 @@ func main() {
 	CheckError(err)
 
 	fmt.Println(userRes)
-
 	fmt.Println("Connected!")
 
 	r := gin.Default()
@@ -67,6 +66,7 @@ func main() {
 		user := &User{}
 		if err := c.ShouldBindJSON(user); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
 		}
 
 		sqlStatement := `
@@ -76,6 +76,7 @@ RETURNING id`
 		err = db.QueryRow(sqlStatement, user.Username, user.Email, user.Password).Scan(&user.Id)
 		if err != nil {
 			c.AbortWithError(http.StatusInternalServerError, err)
+			return
 		}
 
 		c.JSON(http.StatusOK, user.Id)
@@ -86,18 +87,21 @@ RETURNING id`
 		rows, err := db.Query("SELECT id, usename, email FROM users")
 		if err != nil {
 			c.AbortWithError(http.StatusInternalServerError, err)
+			return
 		}
 		defer rows.Close()
 		for rows.Next() {
 			err := rows.Scan(&user.Id, &user.Username, &user.Email)
 			if err != nil {
-				panic(err)
+				c.AbortWithError(http.StatusInternalServerError, err)
+				return
 			}
 			fmt.Println("\n", user.Id, user.Username, user.Email)
 		}
 		err = rows.Err()
 		if err != nil {
-			panic(err)
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
 		}
 		c.JSON(http.StatusOK, user)
 	})
