@@ -16,6 +16,25 @@ spec:
     spec:
       containers:
       - name: account-api
-        image: pranoyk/account-api:1.0
+        image: pranoyk/k8s-demo-account:1.2
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
+        env:
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: pg-db-secret
+                key: POSTGRES_DB
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: pg-db-secret
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: pg-db-secret
+                key: POSTGRES_PASSWORD
+        envFrom:
+          - configMapRef:
+              name: pg-db-configmap

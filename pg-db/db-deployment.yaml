@@ -24,15 +24,22 @@ spec:
           ports:
             # Assign ports to expose container
             - containerPort: 5432
-          envFrom:
-            # Load the environment variables/PostgresSQL credentials
-            - configMapRef:
-                # This should be the ConfigMap name created ealier
-                name: postgres-creds
-          volumeMounts:
-            # The volume mounts  for the container
-            - mountPath: /var/lib/postgres/data
-              name: db-data
+          env:
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: pg-db-secret
+                key: POSTGRES_DB
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: pg-db-secret
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: pg-db-secret
+                key: POSTGRES_PASSWORD
       # Volumes attached to the pod
       volumes:
         - name: db-data

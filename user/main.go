@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
 )
 
 type User struct {
@@ -17,6 +19,7 @@ type User struct {
 }
 
 func CheckEnvErr(env string, key string) {
+	fmt.Printf("%s : %s\n", key, env)
 	if env == "" {
 		panic(fmt.Sprintf("Environment variable %s not set", key))
 	}
@@ -31,8 +34,12 @@ func CheckError(err error) {
 func main() {
 	host := os.Getenv("POSTGRES_HOST")
 	CheckEnvErr(host, "POSTGRES_HOST")
-	port := os.Getenv("POSTGRES_PORT")
-	CheckEnvErr(port, "POSTGRES_PORT")
+	portString := os.Getenv("POSTGRES_PORT")
+	CheckEnvErr(portString, "POSTGRES_PORT")
+	port, err := strconv.Atoi(portString)
+	if err != nil {
+		panic(fmt.Sprintf("Environment variable POSTGRES_PORT not a number: %s\n", portString))
+	}
 	user := os.Getenv("POSTGRES_USER")
 	CheckEnvErr(user, "POSTGRES_USER")
 	password := os.Getenv("POSTGRES_PASSWORD")

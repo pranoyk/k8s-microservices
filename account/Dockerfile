@@ -21,7 +21,7 @@ FROM scratch
 COPY --from=builder /app/account /
 
 # Expose the port that the application listens on
-EXPOSE 8080
+EXPOSE 8081
 
 # Set the entry point to run the built Go application
-CMD ["./acocunt"]
+CMD ["./account"]
